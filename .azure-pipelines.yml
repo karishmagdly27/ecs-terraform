@@ -25,29 +25,31 @@ steps:
     terraform --version
   displayName: 'Install Terraform'
 
-# Step 2: Set AWS credentials (from pipeline secrets)
+# Step 2: Terraform Init (with AWS credentials exported in same step)
 - script: |
     export AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID)
     export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
     export AWS_DEFAULT_REGION=$(AWS_REGION)
-  displayName: 'Set AWS Credentials'
-
-# Step 3: Terraform Init
-- script: |
     terraform init
   workingDirectory: '.'
   displayName: 'Terraform Init'
 
-# Step 4: Terraform Plan
+# Step 3: Terraform Plan
 - script: |
+    export AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID)
+    export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+    export AWS_DEFAULT_REGION=$(AWS_REGION)
     terraform plan -out=tfplan \
       -var "aws_region=$(AWS_REGION)" \
       -var "aws_account_id=$(AWS_ACCOUNT_ID)"
   workingDirectory: '.'
   displayName: 'Terraform Plan'
 
-# Step 5: Terraform Apply
+# Step 4: Terraform Apply
 - script: |
+    export AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID)
+    export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+    export AWS_DEFAULT_REGION=$(AWS_REGION)
     terraform apply -auto-approve tfplan
   workingDirectory: '.'
   displayName: 'Terraform Apply'
