@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = var.tfstate_s3_bucket
-    key            = var.tfstate_s3_key
-    region         = var.aws_region
-    dynamodb_table = var.dynamodb_table
+    bucket         = "my-terraform-state-bucket"   # literal value
+    key            = "ecs-cluster/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "ecs-terraform-lock"
     encrypt        = true
   }
 
@@ -16,5 +16,5 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-2"
 }
