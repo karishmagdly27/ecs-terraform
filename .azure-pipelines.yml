@@ -12,10 +12,10 @@ variables:
   value: "us-west-2"
 - name: AWS_ACCOUNT_ID
   value: "597406702314"
-- name: TFSTATE_BUCKET
-  value: "kari-terraform-state-bucket"
-- name: DYNAMODB_TABLE
-  value: "ecs-terraform-lock-kari"
+# - name: TFSTATE_BUCKET
+#   value: "kari-terraform-state-bucket"
+# - name: DYNAMODB_TABLE
+#   value: "ecs-terraform-lock-kari"
 
 steps:
 
