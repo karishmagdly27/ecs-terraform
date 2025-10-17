@@ -24,16 +24,16 @@ steps:
 - script: |
     terraform init
   workingDirectory: 'ecs-terraform'
-  displayName: 'Terraform Init'
+  displayName: '.'
 
 # Step 3: Terraform Plan
 - script: |
     terraform plan -out=tfplan -var "aws_region=$(AWS_REGION)"
-  workingDirectory: 'ecs-terraform'
+  workingDirectory: '.'
   displayName: 'Terraform Plan'
 
 # Step 4: Terraform Apply
 - script: |
     terraform apply -auto-approve tfplan
-  workingDirectory: 'ecs-terraform'
+  workingDirectory: '.'
   displayName: 'Terraform Apply'
