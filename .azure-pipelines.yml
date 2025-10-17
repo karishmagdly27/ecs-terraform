@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-- group: MyAWSVariables  # name of your variable group
+- group: ECS
 - name: TF_VERSION
   value: "1.9.7"
 - name: AWS_REGION
