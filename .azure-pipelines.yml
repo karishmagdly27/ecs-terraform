@@ -1,0 +1,39 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  TF_VERSION: '1.9.7'
+  AWS_REGION: 'ca-central-1'
+
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: $(TF_VERSION)
+
+- task: TerraformCLI@1
+  displayName: Terraform Init
+  inputs:
+    command: 'init'
+    workingDirectory: 'ecs-terraform'
+
+- task: TerraformCLI@1
+  displayName: Terraform Plan
+  inputs:
+    command: 'plan'
+    workingDirectory: 'ecs-terraform'
+    environmentServiceNameAWS: 'AWS-Service-Connection'
+    vars: |
+      aws_region=$(AWS_REGION)
+
+- task: TerraformCLI@1
+  displayName: Terraform Apply
+  inputs:
+    command: 'apply'
+    workingDirectory: 'ecs-terraform'
+    environmentServiceNameAWS: 'AWS-Service-Connection'
+    args: '-auto-approve'
+    vars: |
+      aws_region=$(AWS_REGION)
