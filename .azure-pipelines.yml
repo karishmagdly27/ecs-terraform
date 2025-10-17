@@ -5,9 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  TF_VERSION: "1.9.7"
-  AWS_REGION: "us-east-2"
-  AWS_ACCOUNT_ID: "597406702314"  # Add your account ID here or as a secret variable
+- group: MyAWSVariables  # name of your variable group
+- name: TF_VERSION
+  value: "1.9.7"
+- name: AWS_REGION
+  value: "us-east-2"
+- name: AWS_ACCOUNT_ID
+  value: "597406702314"
 
 steps:
 
