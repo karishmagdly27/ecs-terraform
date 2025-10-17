@@ -10,42 +10,30 @@ variables:
 
 steps:
 
-# Step 1: Install Terraform
-- task: TerraformInstaller@1
-  displayName: 'Install Terraform $(TF_VERSION)'
-  inputs:
-    terraformVersion: $(TF_VERSION)
-
-# Step 2: Verify Terraform installation
+# Step 1: Install Terraform manually
 - script: |
+    sudo apt-get update
+    sudo apt-get install -y wget unzip
+    wget https://releases.hashicorp.com/terraform/$(TF_VERSION)/terraform_$(TF_VERSION)_linux_amd64.zip
+    unzip terraform_$(TF_VERSION)_linux_amd64.zip
+    sudo mv terraform /usr/local/bin/
     terraform --version
-  displayName: 'Verify Terraform CLI'
+  displayName: 'Install Terraform'
 
-# Step 3: Terraform Init
-- task: TerraformCLI@1
+# Step 2: Terraform Init
+- script: |
+    terraform init
+  workingDirectory: 'ecs-terraform'
   displayName: 'Terraform Init'
-  inputs:
-    command: 'init'
-    workingDirectory: 'ecs-terraform'
-    environmentServiceNameAWS: 'AWS-Service-Connection'
 
-# Step 4: Terraform Plan
-- task: TerraformCLI@1
+# Step 3: Terraform Plan
+- script: |
+    terraform plan -out=tfplan -var "aws_region=$(AWS_REGION)"
+  workingDirectory: 'ecs-terraform'
   displayName: 'Terraform Plan'
-  inputs:
-    command: 'plan'
-    workingDirectory: 'ecs-terraform'
-    environmentServiceNameAWS: 'AWS-Service-Connection'
-    vars: |
-      aws_region=$(AWS_REGION)
 
-# Step 5: Terraform Apply
-- task: TerraformCLI@1
+# Step 4: Terraform Apply
+- script: |
+    terraform apply -auto-approve tfplan
+  workingDirectory: 'ecs-terraform'
   displayName: 'Terraform Apply'
-  inputs:
-    command: 'apply'
-    workingDirectory: 'ecs-terraform'
-    environmentServiceNameAWS: 'AWS-Service-Connection'
-    args: '-auto-approve'
-    vars: |
-      aws_region=$(AWS_REGION)
