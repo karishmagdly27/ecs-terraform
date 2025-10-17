@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "my-terraform-state-bucket"   # literal value
+    bucket         = "kari-terraform-state-bucket"   # literal value
     key            = "ecs-cluster/terraform.tfstate"
     region         = "us-west-2"
-    dynamodb_table = "ecs-terraform-lock"
+    dynamodb_table = "ecs-terraform-lock-kari"
     encrypt        = true
   }
 
