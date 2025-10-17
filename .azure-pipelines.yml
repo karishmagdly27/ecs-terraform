@@ -23,8 +23,8 @@ steps:
 # Step 2: Terraform Init
 - script: |
     terraform init
-  workingDirectory: 'ecs-terraform'
-  displayName: '.'
+  workingDirectory: '.'
+  displayName: 'Terraform Init'
 
 # Step 3: Terraform Plan
 - script: |
