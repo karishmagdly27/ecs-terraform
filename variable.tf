@@ -2,7 +2,7 @@
 variable "aws_region" {
   description = "AWS region to deploy resources"
   type        = string
-  default     = "us-east-2"
+  default     = "us-west-2"
 }
 
 # AWS account id (used for IAM conditions if needed)
@@ -31,11 +31,11 @@ variable "private_subnet_cidrs" {
   default     = ["10.0.2.0/24"]
 }
 
-# Availability zones to use (us-east-2)
+# Availability zones to use (us-west-2)
 variable "availability_zones" {
-  description = "Availability zones to place subnets in. Use us-east-2.*"
+  description = "Availability zones to place subnets in. Use us-west-2.*"
   type        = list(string)
-  default     = ["us-east-2a", "us-east-2b"]
+  default     = ["us-west-2a", "us-west-2b"]
 }
 
 # ECS / Fargate settings
