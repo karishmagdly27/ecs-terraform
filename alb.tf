@@ -7,10 +7,11 @@ resource "aws_lb" "app_alb" {
 }
 
 resource "aws_lb_target_group" "app_tg" {
-  name     = "app-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  name        = "app-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.main.id
+  target_type = "ip"   # <-- Add this line for Fargate compatibility
 
   health_check {
     path = "/"
