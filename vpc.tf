@@ -12,7 +12,7 @@ resource "aws_internet_gateway" "igw" {
   tags   = { Name = "ecs_igw" }
 }
 
-# Public Subnet 1
+# Public Subnets
 resource "aws_subnet" "public_1" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidrs[0]
@@ -21,7 +21,6 @@ resource "aws_subnet" "public_1" {
   tags = { Name = "public_subnet_1" }
 }
 
-# Public Subnet 2
 resource "aws_subnet" "public_2" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidrs[1]
@@ -50,7 +49,7 @@ resource "aws_route_table" "public_rt" {
   tags = { Name = "public_rt" }
 }
 
-# Associate both public subnets
+# Associate both public subnets with the route table
 resource "aws_route_table_association" "public_assoc_1" {
   subnet_id      = aws_subnet.public_1.id
   route_table_id = aws_route_table.public_rt.id
