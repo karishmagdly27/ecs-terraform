@@ -58,19 +58,3 @@ variable "task_cpu" {
 variable "task_memory" {
   default = 512
 }
-
-variable "desired_count" {
-  default = 1
-}
-
-variable "tfstate_s3_bucket" {
-  default = "terraform-ecs-state-bucket"
-}
-
-variable "tfstate_s3_key" {
-  default = "ecs/terraform.tfstate"
-}
-
-variable "dynamodb_table" {
-  default = "terraform-locks"
-}
