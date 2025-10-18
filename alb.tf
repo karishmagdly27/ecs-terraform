@@ -11,7 +11,7 @@ resource "aws_lb_target_group" "app_tg" {
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
-  target_type = "ip"   # <-- Add this line for Fargate compatibility
+  target_type = "ip"   # Fargate compatibility
 
   health_check {
     path = "/"
